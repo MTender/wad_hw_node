@@ -2,21 +2,26 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/404.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
     <title>404</title>
 </head>
 
 <body>
-    <nav>
-        <a href="/">Home </a> |
-        <a href="/posts">Posts page</a> |
-        <a href="/contactus">Contact us</a>
-    </nav>
-    <h1>This page does not exist</h1>
-    <footer class="footer">
-        <p>© WAD 2021 </p>
-    </footer>
+    <div id="app">
+        <%- include('./partials/header.ejs') %>
+            <div id="main">
+                <div class="center-area">
+                    <div class="home">
+                        <h1>404 not found</h1>
+                    </div>
+                </div>
+            </div>
+            <%- include('./partials/footer.ejs') %>
+    </div>
 </body>
 
 </html>
