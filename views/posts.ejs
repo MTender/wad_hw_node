@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/posts.css">
+    <link rel="stylesheet" href="/css/post.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/footer.css">
     <title>Posts</title>
@@ -18,15 +19,43 @@
                     <div class="home">
                         <% if (posts.length > 0) { %>
                             <% posts.forEach(post => { %>
-
-                                <a class="singlepost" href="/singlepost/<%= post.id %>">
-                                    <h3 class="title">
-                                        <%= post.title %>
-                                    </h3>
-                                    <p class="body">
-                                        <%= post.body %>
-                                    </p>
-                                </a>
+                                <div class="post">
+                                    <div class="post-header">
+                                        <div class="profile-picture">
+                                            <a href="#"><img src="<%= post.author_pfp %>" alt="pfp" /></a>
+                                            <p>
+                                                <%= post.author_firstname %>
+                                                    <%= post.author_lastname %>
+                                            </p>
+                                        </div>
+                                        <div class="post-datetime">
+                                            <p>
+                                                <%= new Date(post.date).toLocaleDateString("en-US", { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }) %>
+                                            </p>
+                                            <p>
+                                                <%= new Date("Jan 1 2000 " + post.time).toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit" }) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="post-image">
+                                        <img src="<%= post.image_path %>" alt="post-img" onclick="location.href='/singlepost/<%= post.id %>'" />
+                                    </div>
+                                    <div class="post-text">
+                                        <p>
+                                            <%= post.caption %>
+                                        </p>
+                                    </div>
+                                    <div class="post-footer">
+                                        <div class="like-button">
+                                            <img v-on:click="increaseLikes(id)" src="/images/like.png" alt="like" />
+                                        </div>
+                                        <div class="like-number">
+                                            <p>Likes:
+                                                <%= post.likes %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                                 <% }) %>
                                     <% } else { %>
                                         <p>You did not post anything...</p>
