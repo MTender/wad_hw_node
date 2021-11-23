@@ -1,0 +1,28 @@
+.footer-wrapper {
+    background-color: white;
+    padding: 20px;
+    background: rgb(141, 238, 255);
+}
+
+.footer-wrapper .footer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-wrapper .footer .logo a #header-logo {
+    height: 60px;
+}
+
+.footer-wrapper .info {
+    display: flex;
+    justify-content: start;
+    flex-flow: column nowrap;
+    align-items: flex-end;
+}
+
+.footer-wrapper .info h2 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+}
