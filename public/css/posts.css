@@ -3,3 +3,9 @@
     flex-flow: column nowrap;
     justify-content: left;
 }
+
+.home .interact {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}

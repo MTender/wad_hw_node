@@ -14,6 +14,7 @@
 .post .post-header .title {
     font-weight: bold;
     font-size: large;
+    cursor: default;
 }
 
 .post .post-header .post-datetime>p {
