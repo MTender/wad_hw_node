@@ -2,19 +2,31 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width>, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
     <title> Create a post</title>
 </head>
 
 <body>
-    <div class="create-post">
-        <form action="/posts" method="POST">
-            <label for="title">Post title:</label>
-            <input type="text" id="title" name="title" required><br><br>
-            <label for="body">Post body:</label>
-            <input type="text" id="body" name="body" required><br><br>
-            <button type="submit">Submit</button>
-        </form>
+    <div id="app">
+        <%- include('./partials/header.ejs') %>
+            <div id="main">
+                <div class="center-area">
+                    <div class="create-post">
+                        <h1>New post</h1>
+                        <form action="/posts" method="POST">
+                            <label for="title">Post title:</label>
+                            <input type="text" id="title" name="title" required><br><br>
+                            <label for="body">Post body:</label>
+                            <input type="text" id="body" name="body" required><br><br>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <%- include('./partials/footer.ejs') %>
     </div>
 </body>
 
