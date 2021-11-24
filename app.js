@@ -28,8 +28,7 @@ app.get('/posts', async(req, res) => {
 app.post('/posts', async(req, res) => {
     try {
         const post = req.body;
-        console.log(post);
-        const newpost = await pool.query(
+        await pool.query(
             "INSERT INTO posts(title, body) values ($1, $2)", [post.title, post.body]
         );
         res.redirect('posts');
@@ -40,12 +39,11 @@ app.post('/posts', async(req, res) => {
 
 app.get('/posts/:id', async(req, res) => {
     try {
-        const { id } = req.params;
-        console.log("get a post request has arrived");
-        const Apost = await pool.query(
+        const id = req.params;
+        const post = await pool.query(
             "SELECT * FROM posts WHERE id = $1", [id]
         );
-        res.json(Apost.rows[0]);
+        res.json(post.rows[0]);
     } catch (err) {
         console.error(err.message);
     }
@@ -53,11 +51,8 @@ app.get('/posts/:id', async(req, res) => {
 
 app.delete('/posts/:id', async(req, res) => {
     try {
-        console.log(req.params);
-        const { id } = req.params;
-        const post = req.body;
-        console.log("delete a post request has arrived");
-        const deletepost = await pool.query(
+        const id = req.params;
+        await pool.query(
             "DELETE FROM posts WHERE id = $1", [id]
         );
         res.redirect('posts');
@@ -70,8 +65,6 @@ app.delete('/posts/:id', async(req, res) => {
 app.get('/singlepost/:id', async(req, res) => {
     try {
         const id = req.params.id;
-        console.log(req.params.id);
-        console.log("get a single post request has arrived");
         const posts = await pool.query(
             "SELECT * FROM posts WHERE id = $1", [id]
         );
