@@ -12,11 +12,23 @@
 }
 
 .header-wrapper .header .logo {
-    min-width: 70px;
+    min-width: 250px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
+}
+
+.header-wrapper .header .logo .nav {
+    min-width: 160px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.header-wrapper .header .logo .nav a {
+    font-weight: bold;
+    color: #2c3e50;
 }
 
 .header-wrapper .header .search {
@@ -61,16 +73,25 @@
     background-color: rgb(102, 131, 138);
 }
 
-.header-wrapper .profile-picture {
-    min-width: 70px;
+@media screen and (max-width: 1300px) {
+    .header-wrapper .header .search {
+        display: none;
+    }
+    .header-wrapper .header .profile-picture {
+        min-width: 50px;
+    }
 }
 
-.header-wrapper .profile-picture img {
+.header-wrapper .header .profile-picture {
+    min-width: 250px;
+}
+
+.header-wrapper .header .profile-picture img {
     width: 32px;
     height: 32px;
     border-radius: 50%;
 }
 
-.header-wrapper .profile-picture>a {
+.header-wrapper .header .profile-picture>a {
     float: right;
 }
