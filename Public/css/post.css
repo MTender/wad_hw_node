@@ -11,14 +11,9 @@
     justify-content: space-between;
 }
 
-.post .post-header .profile-picture img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-}
-
-.post .post-header .profile-picture p {
-    margin-top: 2px;
+.post .post-header .title {
+    font-weight: bold;
+    font-size: large;
 }
 
 .post .post-header .post-datetime>p {

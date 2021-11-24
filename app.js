@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 app.use(cors());
-app.use(express.static('Public'));
+app.use(express.static('public'));
 
 app.listen(3000);
 

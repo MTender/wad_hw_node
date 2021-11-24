@@ -17,37 +17,30 @@
             <div id="main">
                 <div class="center-area">
                     <div class="home">
+                        <button onclick="location.href='/addnewpost'">Create new post</button>
                         <% if (posts.length > 0) { %>
                             <% posts.forEach(post => { %>
                                 <div class="post">
                                     <div class="post-header">
-                                        <div class="profile-picture">
-                                            <a href="#"><img src="<%= post.author_pfp %>" alt="pfp" /></a>
+                                        <div class="title">
                                             <p>
-                                                <%= post.author_firstname %>
-                                                    <%= post.author_lastname %>
+                                                <%= post.title %>
                                             </p>
                                         </div>
                                         <div class="post-datetime">
                                             <p>
-                                                <%= new Date(post.date).toLocaleDateString("en-US", { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }) %>
-                                            </p>
-                                            <p>
-                                                <%= new Date("Jan 1 2000 " + post.time).toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit" }) %>
+                                                <%= new Date(post.datetime).toLocaleString("en-US", { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour12: false, hour: '2-digit', minute: '2-digit' }) %>
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="post-image">
-                                        <img src="<%= post.image_path %>" alt="post-img" onclick="location.href='/singlepost/<%= post.id %>'" />
-                                    </div>
                                     <div class="post-text">
                                         <p>
-                                            <%= post.caption %>
+                                            <%= post.body %>
                                         </p>
                                     </div>
                                     <div class="post-footer">
                                         <div class="like-button">
-                                            <img v-on:click="increaseLikes(id)" src="/images/like.png" alt="like" />
+                                            <img src="/images/like.png" alt="like" />
                                         </div>
                                         <div class="like-number">
                                             <p>Likes:
