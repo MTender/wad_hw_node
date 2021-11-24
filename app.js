@@ -4,27 +4,18 @@ const cors = require('cors');
 
 const app = express();
 
-// register the ejs view engine 
 app.set('view engine', 'ejs');
 
-//without this middleware, we cannot use data submitted by forms 
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 app.use(cors());
 app.use(express.static('Public'));
 
-app.listen(3000, () => {
-    console.log("Server is listening to port 3000")
-});
-
-app.get('/', (req, res) => {
-    res.render('index');
-});
+app.listen(3000);
 
 app.get('/posts', async(req, res) => {
     try {
-        console.log("get posts request has arrived");
         const posts = await pool.query(
             "SELECT * FROM posts"
         );
@@ -34,17 +25,16 @@ app.get('/posts', async(req, res) => {
     }
 });
 
-app.get('/singlepost/:id', async(req, res) => {
+app.post('/posts', async(req, res) => {
     try {
-        const id = req.params.id;
-        console.log(req.params.id);
-        console.log("get a single post request has arrived");
-        const posts = await pool.query(
-            "SELECT * FROM posts WHERE id = $1", [id]
+        const post = req.body;
+        console.log(post);
+        const newpost = await pool.query(
+            "INSERT INTO posts(title, body) values ($1, $2)", [post.title, post.body]
         );
-        res.render('singlepost', { posts: posts.rows[0] });
+        res.redirect('posts');
     } catch (err) {
-        console.error(err.message);
+        console.error(err.message)
     }
 });
 
@@ -77,21 +67,22 @@ app.delete('/posts/:id', async(req, res) => {
     }
 });
 
-app.post('/posts', async(req, res) => {
+app.get('/singlepost/:id', async(req, res) => {
     try {
-        const post = req.body;
-        console.log(post);
-        const newpost = await pool.query(
-            "INSERT INTO posts(title, body) values ($1, $2)", [post.title, post.body]
+        const id = req.params.id;
+        console.log(req.params.id);
+        console.log("get a single post request has arrived");
+        const posts = await pool.query(
+            "SELECT * FROM posts WHERE id = $1", [id]
         );
-        res.redirect('posts');
+        res.render('singlepost', { posts: posts.rows[0] });
     } catch (err) {
-        console.error(err.message)
+        console.error(err.message);
     }
 });
 
-app.get('/create', (req, res) => {
-    res.render('create');
+app.get('/addnewpost', (req, res) => {
+    res.render('addnewpost');
 });
 
 app.use((req, res) => {
