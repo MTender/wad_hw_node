@@ -2,33 +2,60 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/post.css">
+    <link rel="stylesheet" href="/css/singlepost.css">
     <title>Single Post</title>
 </head>
 
 <body>
-    <div class="singlepost">
-        <h2>
-            <%= posts.title %>
-        </h2>
-        <div class="content">
-            <p>
-                <%= posts.body %>
-            </p>
-        </div>
-        <a class="delete" data-del="<%= posts.id %>">Delete</a>
+    <div id="app">
+        <%- include('./partials/header.ejs') %>
+            <div id="main">
+                <div class="center-area">
+                    <div class="post">
+                        <div class="post-header">
+                            <div class="title">
+                                <p>
+                                    <%= posts.title %>
+                                </p>
+                            </div>
+                            <div class="post-datetime">
+                                <p>
+                                    <%= new Date(posts.datetime).toLocaleString("en-US", { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour12: false, hour: '2-digit', minute: '2-digit' }) %>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="post-text">
+                            <p>
+                                <%= posts.body %>
+                            </p>
+                        </div>
+                        <div class="post-footer">
+                            <div class="like-number">
+                                <p>Likes:
+                                    <%= posts.likes %>
+                                </p>
+                            </div>
+                        </div>
+                        <a class="delete" data-del="<%= posts.id %>">Delete</a>
+                    </div>
+                    <script>
+                        const delreq = document.querySelector('a.delete');
+                        delreq.addEventListener('click', (e) => {
+                            const endpoint = `/posts/${delreq.dataset.del}`;
+                            fetch(endpoint, {
+                                method: 'DELETE',
+                            }).then(window.location.href = '/posts')
+                        });
+                    </script>
+                </div>
+            </div>
+            <%- include('./partials/footer.ejs') %>
     </div>
-    <script>
-        const delreq = document.querySelector('a.delete');
-        delreq.addEventListener('click', (e) => {
-            const endpoint = `/posts/${delreq.dataset.del}`;
-            fetch(endpoint, {
-                method: 'DELETE',
-            }).then(window.location.href = '/posts')
-        });
-    </script>
 </body>
 
 </html>

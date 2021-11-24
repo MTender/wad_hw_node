@@ -1,0 +1,6 @@
+.post .delete {
+    font-weight: bold;
+    text-decoration: underline;
+    color: red;
+    cursor: pointer;
+}
