@@ -51,11 +51,12 @@ app.get('/posts/:id', async(req, res) => {
 
 app.delete('/posts/:id', async(req, res) => {
     try {
-        const id = req.params;
+        const { id } = req.params;
         await pool.query(
             "DELETE FROM posts WHERE id = $1", [id]
         );
         res.redirect('posts');
+        console.log("delete a post request has arrived!");
 
     } catch (err) {
         console.error(err.message);
