@@ -17,7 +17,7 @@ app.listen(3000);
 app.get('/posts', async(req, res) => {
     try {
         const posts = await pool.query(
-            "SELECT * FROM posts"
+            "SELECT * FROM posts ORDER BY id DESC"
         );
         res.render('posts', { posts: posts.rows });
     } catch (err) {
@@ -47,6 +47,19 @@ app.get('/posts/:id', async(req, res) => {
     } catch (err) {
         console.error(err.message);
     }
+});
+
+app.put('/posts/:id', async(req, res) => { 
+    try { 
+        const { id } = req.params; 
+        const post = req.body; 
+        const updatepost = await pool.query( 
+            "UPDATE posts SET likes = likes+$2 WHERE id = $1", [id, post.likes] 
+        ); 
+        res.json(post); 
+    } catch (err) { 
+        console.error(err.message); 
+    } 
 });
 
 app.delete('/posts/:id', async(req, res) => {

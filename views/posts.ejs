@@ -42,7 +42,7 @@
                                         </p>
                                     </div>
                                     <div class="post-footer">
-                                        <div class="like-button">
+                                        <div class="like-button" data-id="<%= post.id %>">
                                             <img src="/images/like.png" alt="like" />
                                         </div>
                                         <div class="like-number">
@@ -62,5 +62,21 @@
             <%- include('./partials/footer.ejs') %>
     </div>
 </body>
+
+<script>
+    const likereqs = document.querySelectorAll(".like-button");
+    for (let likereq of likereqs) {
+        likereq.addEventListener("click", (e) => {
+        const endpoint = `/posts/${likereq.dataset.id}`;
+        fetch(endpoint, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "likes": 1 }),
+        }).then((window.location.reload()));
+        });
+    }
+</script>
 
 </html>
