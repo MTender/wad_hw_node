@@ -15,80 +15,61 @@ app.use(express.static('public'));
 app.listen(3000);
 
 app.get('/posts', async(req, res) => {
-    try {
-        const posts = await pool.query(
-            "SELECT * FROM posts ORDER BY id DESC"
-        );
+    console.log("GET /posts");
+    pool.query("SELECT * FROM posts ORDER BY id DESC", (err, posts) => {
+        if (err) throw err;
         res.render('posts', { posts: posts.rows });
-    } catch (err) {
-        console.error(err.message);
-    }
+    });
 });
 
 app.post('/posts', async(req, res) => {
-    try {
-        const post = req.body;
-        await pool.query(
-            "INSERT INTO posts(title, body) values ($1, $2)", [post.title, post.body]
-        );
-        res.redirect('posts');
-    } catch (err) {
-        console.error(err.message)
-    }
+    console.log("POST /posts");
+    const post = req.body;
+    pool.query(
+        "INSERT INTO posts(title, body) values ($1, $2)", [post.title, post.body], (err) => {
+            if (err) throw err;
+            res.redirect('posts');
+        }
+    );
 });
 
 app.get('/posts/:id', async(req, res) => {
-    try {
-        const id = req.params;
-        const post = await pool.query(
-            "SELECT * FROM posts WHERE id = $1", [id]
-        );
+    console.log("GET /posts/:id");
+    pool.query("SELECT * FROM posts WHERE id = $1", [req.params.id], (err, post) => {
+        if (err) throw err;
         res.json(post.rows[0]);
-    } catch (err) {
-        console.error(err.message);
-    }
+    });
 });
 
-app.put('/posts/:id', async(req, res) => { 
-    try { 
-        const { id } = req.params; 
-        const post = req.body; 
-        const updatepost = await pool.query( 
-            "UPDATE posts SET likes = likes+$2 WHERE id = $1", [id, post.likes] 
-        ); 
-        res.json(post); 
-    } catch (err) { 
-        console.error(err.message); 
-    } 
+app.put('/posts/:id', async(req, res) => {
+    console.log("PUT /posts/:id");
+    pool.query("UPDATE posts SET likes = likes+$2 WHERE id=$1", [req.params.id, req.body.likes], (err, post) => {
+        if (err) throw err;
+        res.end(JSON.stringify(post));
+    });
+
 });
 
 app.delete('/posts/:id', async(req, res) => {
-    try {
-        const { id } = req.params;
-        await pool.query(
-            "DELETE FROM posts WHERE id = $1", [id]
-        );
-        res.redirect('posts');
-        console.log("delete a post request has arrived!");
-
-    } catch (err) {
-        console.error(err.message);
-    }
+    console.log("DELETE /posts/:id");
+    pool.query("DELETE FROM posts WHERE id=$1", [req.params.id], (err) => {
+        if (err) throw err;
+        res.end("Post was deleted!")
+    });
 });
 
 app.get('/singlepost/:id', async(req, res) => {
-    try {
-        const id = req.params.id;
-        const posts = await pool.query(
-            "SELECT * FROM posts WHERE id = $1", [id]
-        );
-        res.render('singlepost', { posts: posts.rows[0] });
-    } catch (err) {
-        console.error(err.message);
-    }
+    console.log("GET /singlepost/:id");
+    pool.query(
+        "SELECT * FROM posts WHERE id = $1", [req.params.id], (err, post) => {
+            if (err) throw err;
+            res.render('singlepost', { posts: post.rows[0] });
+        }
+    );
 });
 
 app.get('/addnewpost', (req, res) => {
+    console.log("GET /addnewpost");
     res.render('addnewpost');
 });
 
