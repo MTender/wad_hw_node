@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/post.css">
     <link rel="stylesheet" href="/css/singlepost.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/delete.js"></script>
     <title>Single Post</title>
 </head>
 
@@ -44,17 +46,8 @@
                                 </p>
                             </div>
                         </div>
-                        <a class="delete" data-del="<%= posts.id %>">Delete</a>
+                        <a id="delete" data-del="<%= posts.id %>">Delete</a>
                     </div>
-                    <script>
-                        const delreq = document.querySelector('a.delete');
-                        delreq.addEventListener('click', (e) => {
-                            const endpoint = `/posts/${delreq.dataset.del}`;
-                            fetch(endpoint, {
-                                method: 'DELETE',
-                            }).then(window.location.href = '/posts')
-                        });
-                    </script>
                 </div>
             </div>
             <%- include('./partials/footer.ejs') %>
