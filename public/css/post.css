@@ -33,7 +33,7 @@
     width: 100%;
 }
 
-.post .post-footer>.like-button img {
+.post .post-footer .like-button {
     width: 32px;
     height: 30px;
 }

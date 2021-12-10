@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/posts.css">
     <link rel="stylesheet" href="/css/post.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/like.js"></script>
     <title>Posts</title>
 </head>
 
@@ -24,9 +26,9 @@
                         <% if (posts.length > 0) { %>
                             <% posts.forEach(post => { %>
                                 <div class="post">
-                                    <div class="post-header">
+                                    <div class="post-header" onclick="location.href='/singlepost/<%= post.id %>'">
                                         <div class="title">
-                                            <p onclick="location.href='/singlepost/<%= post.id %>'">
+                                            <p>
                                                 <%= post.title %>
                                             </p>
                                         </div>
@@ -36,14 +38,14 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="post-text">
+                                    <div class="post-text" onclick="location.href='/singlepost/<%= post.id %>'">
                                         <p>
                                             <%= post.body %>
                                         </p>
                                     </div>
                                     <div class="post-footer">
-                                        <div class="like-button" data-id="<%= post.id %>">
-                                            <img src="/images/like.png" alt="like" />
+                                        <div>
+                                            <img class="like-button" data-id="<%= post.id %>" src="/images/like.png" alt="like" />
                                         </div>
                                         <div class="like-number">
                                             <p>Likes:
@@ -62,21 +64,5 @@
             <%- include('./partials/footer.ejs') %>
     </div>
 </body>
-
-<script>
-    const likereqs = document.querySelectorAll(".like-button");
-    for (let likereq of likereqs) {
-        likereq.addEventListener("click", (e) => {
-        const endpoint = `/posts/${likereq.dataset.id}`;
-        fetch(endpoint, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ "likes": 1 }),
-        }).then((window.location.reload()));
-        });
-    }
-</script>
 
 </html>
