@@ -33,7 +33,15 @@
     width: 100%;
 }
 
+.post .post-footer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    border-top: 1px solid lightgray;
+}
+
 .post .post-footer .like-button {
     width: 32px;
     height: 30px;
+    margin: 10px;
 }
